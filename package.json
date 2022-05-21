@@ -3,8 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "pm2 start app.js",
-    "postinstall": "CI=false npm run build"
+    "start": "pm2 start app.js"
   },
   "engines": {
     "node": "16.6.1"
