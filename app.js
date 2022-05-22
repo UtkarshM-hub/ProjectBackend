@@ -42,46 +42,16 @@ const MONGODB_URI='mongodb+srv://UtMandape:1BGR3QO2fcFmFHXw@cluster0.akibk.mongo
       //   ],
       // };
 
-//       app.use(cors({
-//           origin:'https://heroic-cupcake-dc4577.netlify.app',
-//           methods:["GET","POST","PUT"],
-//           allowedHeaders:["Content-Type","multipart/form-data"]
-//         }));
-//         app.use((req, res, next) => {
-//             res.header('Access-Control-Allow-Origin', '*');
-//             res.header('Access-Control-Allow-Headers',
-//             'Origin, X-Requeted-With, Content-Type, Accept, Authorization, RBR',);
-//             if (req.headers.origin) {
-//                 res.header('Access-Control-Allow-Origin', req.headers.origin);
-//               }
-//               if (req.method === 'OPTIONS') {
-//                   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
-//                   return res.status(200).json({});
-//                 }
-//   next();
-// }); 
-app.use(function (req, res, next) {
-
-  // Website you wish to allow to connect
-  res.setHeader('Access-Control-Allow-Origin', '*');
-
-  // Request methods you wish to allow
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-
-  // Request headers you wish to allow
-  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-
-  // Set to true if you need the website to include cookies in the requests sent
-  // to the API (e.g. in case you use sessions)
-  res.setHeader('Access-Control-Allow-Credentials', true);
-
-  // Pass to next layer of middleware
-  next();
-});
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
-app.use(logger('dev'));
-app.use(express.json());
+      // app.use(cors({
+      //     origin:'https://heroic-cupcake-dc4577.netlify.app',
+      //     methods:["GET","POST","PUT"],
+      //     allowedHeaders:["Content-Type","multipart/form-data"]
+      //   }));
+      
+      app.set('views', path.join(__dirname, 'views'));
+      app.set('view engine', 'jade');
+      app.use(logger('dev'));
+      app.use(express.json());
 // app.use(cors({
 //   origin:["https://heroic-cupcake-dc4577.netlify.app","https://62888a3763d6b256995420a1--heroic-cupcake-dc4577.netlify.app"],
 // }));
@@ -91,6 +61,19 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'build')));
 app.use("/images",express.static(path.join(__dirname, 'images')));
 
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', 'https://heroic-cupcake-dc4577.netlify.app');
+    res.header('Access-Control-Allow-Headers',
+    'Origin, X-Requeted-With, Content-Type, Accept, Authorization, RBR',);
+    if (req.headers.origin) {
+        res.header('Access-Control-Allow-Origin', req.headers.origin);
+      }
+      if (req.method === 'OPTIONS') {
+          res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
+          return res.status(200).json({});
+        }
+next();
+}); 
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
