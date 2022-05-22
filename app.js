@@ -62,7 +62,7 @@ app.use(express.static(path.join(__dirname, 'build')));
 app.use("/images",express.static(path.join(__dirname, 'images')));
 
 app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'https://heroic-cupcake-dc4577.netlify.app');
+    res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers',
     'Origin, X-Requeted-With, Content-Type, Accept, Authorization, RBR',);
     if (req.headers.origin) {
