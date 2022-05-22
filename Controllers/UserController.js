@@ -161,6 +161,7 @@ exports.checkCred=async(req,res,next)=>{
     catch(err){
         console.log(err);
     }
+     return next(new NotAuthorizedError());
 }
 
 exports.LoginController=async(req,res,next)=>{
