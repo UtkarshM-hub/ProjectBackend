@@ -22,7 +22,7 @@ var InventoryRouter = require('./routes/Inventory');
 var ShopRouter = require('./routes/Store');
 var Payment = require('./routes/Payment');
 var Analytics = require('./routes/Analytics');
-const socket = require('../frontend/src/socket');
+// const socket = require('../frontend/src/socket');
 
 // declerations
 const MONGODB_URI='mongodb+srv://UtMandape:1BGR3QO2fcFmFHXw@cluster0.akibk.mongodb.net/Chat?retryWrites=true&w=majority';

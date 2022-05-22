@@ -2,7 +2,7 @@ const Online=require("../Models/OnlineUsers");
 const Conversation=require("../Models/ConversationModel");
 const User=require("../Models/UserModal");
 const Socket = require("../Socket");
-const { getSocket } = require("../../frontend/src/socket");
+// const { getSocket } = require("../../frontend/src/socket");
 const IO=require("../Socket").getIO();
 const ObjectId=require("mongoose").Types.ObjectId;
 
