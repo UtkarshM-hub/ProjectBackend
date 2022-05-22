@@ -102,45 +102,45 @@ app.use(function(err, req, res, next) {
 
 Mongoose.connect(process.env.DATABASE_URI,()=>{
   console.log("connected");
-  io.on("connection",(socket)=>{
-    console.log(socket.id)
-    socket.on("saveConnect",async(data)=>{
-      if(data.userId!==null || data.userId!==undefined){
-        try{
-          const doesAlreadyExists=await User.findById(data.userId);
-          if(doesAlreadyExists[0]!==undefined){
-            console.log(doesAlreadyExists);
-            const updated=await User.findByIdAndUpdate(doesAlreadyExists._id,{socketId:socket.id,IsOnline:true});
-            return;
-          }
-          let timeInterval=setTimeout(async()=>{
-            const newOnline=await User.findByIdAndUpdate(doesAlreadyExists._id,{socketId:socket.id,IsOnline:true});
-            socket.broadcast.emit("IsMyFriendOnline",{id:data.userId,socketId:socket.id});
-          clearTimeout(timeInterval);
-          return;
-        })
-      }
-      catch(err){
-        console.log(err)
-      }
-      }
-    });
-    socket.on("disconnect",async()=>{
-      console.log("event fired")
-      const user=await User.findOne({"socketId":socket.id});
-      console.log(socket.id)
-      await User.findOneAndUpdate({"socketId":socket.id},{IsOnline:false});
-      if(user!==null){
-        socket.broadcast.emit("IsMyFriendOffline",{id:user._id});
-      }
-      return;
-    })
+  // io.on("connection",(socket)=>{
+  //   console.log(socket.id)
+  //   socket.on("saveConnect",async(data)=>{
+  //     if(data.userId!==null || data.userId!==undefined){
+  //       try{
+  //         const doesAlreadyExists=await User.findById(data.userId);
+  //         if(doesAlreadyExists[0]!==undefined){
+  //           console.log(doesAlreadyExists);
+  //           const updated=await User.findByIdAndUpdate(doesAlreadyExists._id,{socketId:socket.id,IsOnline:true});
+  //           return;
+  //         }
+  //         let timeInterval=setTimeout(async()=>{
+  //           const newOnline=await User.findByIdAndUpdate(doesAlreadyExists._id,{socketId:socket.id,IsOnline:true});
+  //           socket.broadcast.emit("IsMyFriendOnline",{id:data.userId,socketId:socket.id});
+  //         clearTimeout(timeInterval);
+  //         return;
+  //       })
+  //     }
+  //     catch(err){
+  //       console.log(err)
+  //     }
+  //     }
+  //   });
+  //   socket.on("disconnect",async()=>{
+  //     console.log("event fired")
+  //     const user=await User.findOne({"socketId":socket.id});
+  //     console.log(socket.id)
+  //     await User.findOneAndUpdate({"socketId":socket.id},{IsOnline:false});
+  //     if(user!==null){
+  //       socket.broadcast.emit("IsMyFriendOffline",{id:user._id});
+  //     }
+  //     return;
+  //   })
     
-    socket.on("sendMsg",(message)=>{
-      console.log(message)
-      socket.to(message.socketId).emit("getMsg",{data:message.data});
-    })
-  })
+  //   socket.on("sendMsg",(message)=>{
+  //     console.log(message)
+  //     socket.to(message.socketId).emit("getMsg",{data:message.data});
+  //   })
+  // })
   let PORT=process.env.PORT || 8080;
   server.listen(process.env.PORT);
 })
