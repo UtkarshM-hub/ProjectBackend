@@ -128,9 +128,6 @@ exports.SignUpHandler=async(req,res,next)=>{
                 }
             )
             await analytics.save();
-            if(file.path!==undefined){
-                fs.unlinkSync(filePath);
-            }
             res.status(200).send({message:"Successfully Signed in",type:"Success"});
         })
     }
@@ -329,9 +326,6 @@ exports.UpdateUserProfilePic=async(req,res,next)=>{
                 return res.status(500).send({message:"Error uploading image",type:"Error"});
             }
             await UserModal.findByIdAndUpdate(userId,{ProfilePic:result.url});
-            if(file.path!==undefined){
-                fs.unlinkSync(filePath);
-            }
             res.send({ProfilePic:result.url});
         })
     }   
